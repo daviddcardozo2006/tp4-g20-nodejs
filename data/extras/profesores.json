@@ -1,0 +1,29 @@
+[
+  {
+    "legajo": 20001,
+    "nombre": "Laura",
+    "apellido": "Gómez",
+    "email": "laura.gomez@universidad.edu.ar",
+    "titulo": "Ingeniera en Sistemas",
+    "materiasDictadas": [
+      "MAT101",
+      "PRG202"
+    ],
+    "departamento": "Ciencias de la Computación",
+    "fechaAlta": "2026-06-02",
+    "modificacion": "2026-06-02",
+    "isActive": true
+  },
+  {
+    "legajo": 20002,
+    "nombre": "Roberto",
+    "apellido": "Fernández",
+    "email": "roberto.f@universidad.edu.ar",
+    "titulo": "Licenciado en Matemáticas",
+    "materiasDictadas": [],
+    "departamento": "Matemática",
+    "fechaAlta": "2025-03-15",
+    "modificacion": "2026-06-02",
+    "isActive": false
+  }
+]

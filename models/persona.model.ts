@@ -34,6 +34,21 @@ export class PersonaModel {
     this.email = email
   }
 
+  // VALIDATION ATTRIBUTES
+  public static validate(body: any): string | null {
+    if (!body.nombre || body.nombre.trim() === '') {
+      return 'El nombre es obligatorio';
+    }
+    if (!body.apellido || body.apellido.trim() === '') {
+      return 'El apellido es obligatorio';
+    }
+    if (!body.email || !body.email.includes('@')) {
+      return 'El email es obligatorio y debe ser válido';
+    }
+    
+    return null;
+  }
+
   // devolver todos los atributos en un objeto literal/plano (es como un JSON)
   public getAllAttributes(): object {
     return {

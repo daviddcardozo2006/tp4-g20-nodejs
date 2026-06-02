@@ -6,7 +6,8 @@
     "allowSyntheticDefaultImports": true,
     "strict": false,
     "outDir": "./dist",
-    "rootDir": "./"
+    "rootDir": "./",
+    "noImplicitOverride": true // Config Agregado para permitir el uso de 'override' en métodos que sobrescriben métodos de la clase padre
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]
