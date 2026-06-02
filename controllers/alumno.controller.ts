@@ -17,7 +17,7 @@ const getAlumnoById = async (req: Request, res: Response) => {
   try {
     const alumnos = await readDB('alumnos')
     const { legajo } = req.params
-    const alumno = alumnos.find((a: AlumnoModel) => a.getLegajo() === parseInt(legajo as string))
+    const alumno = alumnos.find((a: any) => a.legajo === parseInt(legajo as string, 10))
 
     if (!alumno) {
       return res.status(404).json({ error: `No existe el alumno con el legajo ${legajo}` })
@@ -39,7 +39,7 @@ const createAlumno = async (req: Request, res: Response) => {
 
     const alumnos = await readDB('alumnos')
 
-    const existe = alumnos.find((a: AlumnoModel) => a.getLegajo() === req.body.legajo)
+    const existe = alumnos.find((a: any) => a.legajo === req.body.legajo)
     if (existe) {
       return res.status(409).json({ error: `Ya existe un alumno con el legajo ${req.body.legajo}` })
     }
@@ -67,7 +67,7 @@ const updateAlumno = async (req: Request, res: Response) => {
   try {
     const alumnos = await readDB('alumnos')
     const { legajo } = req.params
-    const index = alumnos.findIndex((a: AlumnoModel) => a.getLegajo() === parseInt(legajo as string))
+    const index = alumnos.findIndex((a: any) => a.legajo === parseInt(legajo as string, 10))
 
     if (index === -1) {
       return res.status(404).json({ error: `No existe el alumno con el legajo ${legajo}` })
@@ -75,10 +75,19 @@ const updateAlumno = async (req: Request, res: Response) => {
 
     const fecha = new Date().toISOString().split('T')[0]
 
+    const { nombre, apellido, email, isActive } = req.body;
     alumnos[index] = {
+
+      // Datos viejos
       ...alumnos[index],
-      ...req.body,
-      legajo: alumnos[index].legajo,
+      
+      // Si pusieron datos nuevos, los actualizamos, sino dejamos los viejos
+      nombre: nombre !== undefined ? nombre : alumnos[index].nombre,
+      apellido: apellido !== undefined ? apellido : alumnos[index].apellido,
+      email: email !== undefined ? email : alumnos[index].email,
+      isActive: isActive !== undefined ? isActive : alumnos[index].isActive,
+
+      // actualizamos la fecha de modificación
       modificacion: fecha
     }
 
@@ -95,13 +104,13 @@ const deleteAlumno = async (req: Request, res: Response) => {
   try {
     const alumnos = await readDB('alumnos')
     const { legajo } = req.params
-    const index = alumnos.findIndex((a: AlumnoModel) => a.getLegajo() === parseInt(legajo as string))
+    const index = alumnos.findIndex((a: any) => a.legajo === parseInt(legajo as string, 10))
 
     if (index === -1) {
       return res.status(404).json({ error: `No existe el alumno con el legajo ${legajo}` })
     }
 
-    const eliminado = alumnos.splice(index, 1)[0]
+    const eliminado = alumnos.splice(index, 1)[0] // splice devuelve un array con los elementos eliminados, como solo eliminamos uno, agarramos el primero (y único) elemento del array con [0]
     await writeDB('alumnos', alumnos)
 
     return res.status(200).json({ msg: `Alumno con legajo ${legajo} eliminado`, alumno: eliminado })
