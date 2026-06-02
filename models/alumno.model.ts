@@ -5,7 +5,7 @@ export class AlumnoModel extends PersonaModel {
     nombre: string,
     apellido: string,
     email: string,
-    private legajo: number,
+    public legajo: number,
     private fechaAlta: string,
     private modificacion: string,
     private isActive: boolean
