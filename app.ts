@@ -1,4 +1,3 @@
-const Server = require('./core/server')
-
-const servidor = new Server()
-servidor.listen()
+import Server from './core/server';
+const servidor = new Server();
+servidor.listen();

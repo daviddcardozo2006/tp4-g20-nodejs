@@ -1,4 +1,4 @@
-import { PersonaModel } from './persona.model'
+import { PersonaModel } from './persona.model';
 
 export class AlumnoModel extends PersonaModel {
   constructor(
@@ -10,38 +10,37 @@ export class AlumnoModel extends PersonaModel {
     private modificacion: string = new Date().toISOString().split('T')[0],
     private isActive: boolean = true
   ) {
-    super(nombre, apellido, email)
+    super(nombre, apellido, email);
   }
 
   // GETTERS
   public getLegajo(): number {
-    return this.legajo
+    return this.legajo;
   }
 
   public getFechaAlta(): string {
-    return this.fechaAlta
+    return this.fechaAlta;
   }
 
   public getModificacion(): string {
-    return this.modificacion
+    return this.modificacion;
   }
-  
+
   public getIsActive(): boolean {
-    return this.isActive
+    return this.isActive;
   }
 
   // SETTERS
   public setModificacion(fecha: string): void {
-    this.modificacion = fecha
+    this.modificacion = fecha;
   }
 
   public setIsActive(valor: boolean): void {
-    this.isActive = valor
+    this.isActive = valor;
   }
 
   // VALIDATION ATTRIBUTES
   public static override validate(body: any): string | null {
-  
     // Validacion Persona
     const errorPersona = PersonaModel.validate(body);
     if (errorPersona) {
@@ -65,7 +64,7 @@ export class AlumnoModel extends PersonaModel {
       ...super.getAllAttributes(),
       fechaAlta: this.fechaAlta,
       modificacion: this.modificacion,
-      isActive: this.isActive
-    }
+      isActive: this.isActive,
+    };
   }
 }

@@ -1,78 +1,96 @@
-import { readDB, writeDB } from '../utils/jsonDB-manager.util'
-import { Request, Response } from 'express'
-import { AlumnoModel } from '../models/alumno.model'
-
+import { readDB, writeDB } from '../utils/jsonDB-manager.util';
+import { Request, Response } from 'express';
+import { AlumnoModel } from '../models/alumno.model';
 
 const getAlumnoAll = async (req: Request, res: Response) => {
   try {
-    const alumnos = await readDB('alumnos')
-    return res.status(200).json(alumnos)
+    const alumnos = await readDB('alumnos');
+    return res.status(200).json(alumnos);
   } catch (error) {
-    console.error(error)
-    return res.status(500).json({ error: 'No se pudieron obtener los datos de los alumnos' })
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: 'No se pudieron obtener los datos de los alumnos' });
   }
-}
+};
 
 const getAlumnoById = async (req: Request, res: Response) => {
   try {
-    const alumnos = await readDB('alumnos')
-    const { legajo } = req.params
-    const alumno = alumnos.find((a: any) => a.legajo === parseInt(legajo as string, 10))
+    const alumnos = await readDB('alumnos');
+    const { legajo } = req.params;
+    const alumno = alumnos.find(
+      (a: any) => a.legajo === parseInt(legajo as string, 10)
+    );
 
     if (!alumno) {
-      return res.status(404).json({ error: `No existe el alumno con el legajo ${legajo}` })
+      return res
+        .status(404)
+        .json({ error: `No existe el alumno con el legajo ${legajo}` });
     }
 
-    return res.status(200).json(alumno)
+    return res.status(200).json(alumno);
   } catch (error) {
-    console.error(error)
-    return res.status(500).json({ error: `No se pudo obtener el detalle del alumno con legajo ${req.params.legajo}` })
+    console.error(error);
+    return res
+      .status(500)
+      .json({
+        error: `No se pudo obtener el detalle del alumno con legajo ${req.params.legajo}`,
+      });
   }
-}
+};
 
 const createAlumno = async (req: Request, res: Response) => {
   try {
-    const alumnos = await readDB('alumnos')
+    const alumnos = await readDB('alumnos');
 
-    let nuevo_legajo = 0
+    let nuevo_legajo = 0;
 
-    if(alumnos){
-      const legajos = alumnos.map((a: any) => a.legajo)
-      const maxLegajo = Math.max(...legajos) 
-      nuevo_legajo = maxLegajo + 1
+    if (alumnos) {
+      const legajos = alumnos.map((a: any) => a.legajo);
+      const maxLegajo = Math.max(...legajos);
+      nuevo_legajo = maxLegajo + 1;
     }
-    
+
     const { nombre, apellido, email, isActive } = req.body;
-    const nuevoAlumno = new AlumnoModel(nombre, apellido, email, nuevo_legajo, isActive)
+    const nuevoAlumno = new AlumnoModel(
+      nombre,
+      apellido,
+      email,
+      nuevo_legajo,
+      isActive
+    );
 
     alumnos.push(nuevoAlumno.getAllAttributes());
 
     await writeDB('alumnos', alumnos);
 
-    return res.status(201).json(nuevoAlumno)
+    return res.status(201).json(nuevoAlumno);
   } catch (error) {
-    console.error(error)
-    return res.status(500).json({ error: 'No se pudo crear el alumno' })
+    console.error(error);
+    return res.status(500).json({ error: 'No se pudo crear el alumno' });
   }
-}
+};
 
 const updateAlumno = async (req: Request, res: Response) => {
   try {
-    const alumnos = await readDB('alumnos')
-    const { legajo } = req.params
-    const index = alumnos.findIndex((a: any) => a.legajo === parseInt(legajo as string, 10))
+    const alumnos = await readDB('alumnos');
+    const { legajo } = req.params;
+    const index = alumnos.findIndex(
+      (a: any) => a.legajo === parseInt(legajo as string, 10)
+    );
 
     if (index === -1) {
-      return res.status(404).json({ error: `No existe el alumno con el legajo ${legajo}` })
+      return res
+        .status(404)
+        .json({ error: `No existe el alumno con el legajo ${legajo}` });
     }
 
-    const fecha = new Date().toISOString().split('T')[0]
+    const fecha = new Date().toISOString().split('T')[0];
     const { nombre, apellido, email, isActive } = req.body;
     alumnos[index] = {
-
       // Datos viejos
       ...alumnos[index],
-      
+
       // Si pusieron datos nuevos, los actualizamos, sino dejamos los viejos
       nombre: nombre !== undefined ? nombre : alumnos[index].nombre,
       apellido: apellido !== undefined ? apellido : alumnos[index].apellido,
@@ -80,36 +98,59 @@ const updateAlumno = async (req: Request, res: Response) => {
       isActive: isActive !== undefined ? isActive : alumnos[index].isActive,
 
       // actualizamos la fecha de modificación
-      modificacion: fecha
-    }
+      modificacion: fecha,
+    };
 
-    await writeDB('alumnos', alumnos)
+    await writeDB('alumnos', alumnos);
 
-    return res.status(200).json(alumnos[index])
+    return res.status(200).json(alumnos[index]);
   } catch (error) {
-    console.error(error)
-    return res.status(500).json({ error: `No se pudo actualizar el alumno con legajo ${req.params.legajo}` })
+    console.error(error);
+    return res
+      .status(500)
+      .json({
+        error: `No se pudo actualizar el alumno con legajo ${req.params.legajo}`,
+      });
   }
-}
+};
 
 const deleteAlumno = async (req: Request, res: Response) => {
   try {
-    const alumnos = await readDB('alumnos')
-    const { legajo } = req.params
-    const index = alumnos.findIndex((a: any) => a.legajo === parseInt(legajo as string, 10))
+    const alumnos = await readDB('alumnos');
+    const { legajo } = req.params;
+    const index = alumnos.findIndex(
+      (a: any) => a.legajo === parseInt(legajo as string, 10)
+    );
 
     if (index === -1) {
-      return res.status(404).json({ error: `No existe el alumno con el legajo ${legajo}` })
+      return res
+        .status(404)
+        .json({ error: `No existe el alumno con el legajo ${legajo}` });
     }
 
-    const eliminado = alumnos.splice(index, 1)[0] // splice devuelve un array con los elementos eliminados, como solo eliminamos uno, agarramos el primero (y único) elemento del array con [0]
-    await writeDB('alumnos', alumnos)
+    const eliminado = alumnos.splice(index, 1)[0]; // splice devuelve un array con los elementos eliminados, como solo eliminamos uno, agarramos el primero (y único) elemento del array con [0]
+    await writeDB('alumnos', alumnos);
 
-    return res.status(200).json({ msg: `Alumno con legajo ${legajo} eliminado`, alumno: eliminado })
+    return res
+      .status(200)
+      .json({
+        msg: `Alumno con legajo ${legajo} eliminado`,
+        alumno: eliminado,
+      });
   } catch (error) {
-    console.error(error)
-    return res.status(500).json({ error: `No se pudo eliminar el alumno con legajo ${req.params.legajo}` })
+    console.error(error);
+    return res
+      .status(500)
+      .json({
+        error: `No se pudo eliminar el alumno con legajo ${req.params.legajo}`,
+      });
   }
-}
+};
 
-export { getAlumnoAll, getAlumnoById, createAlumno, updateAlumno, deleteAlumno }
+export {
+  getAlumnoAll,
+  getAlumnoById,
+  createAlumno,
+  updateAlumno,
+  deleteAlumno,
+};
