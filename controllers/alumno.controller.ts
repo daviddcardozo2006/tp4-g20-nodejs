@@ -32,28 +32,21 @@ const getAlumnoById = async (req: Request, res: Response) => {
 
 const createAlumno = async (req: Request, res: Response) => {
   try {
-    const error = AlumnoModel.validate(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-
     const alumnos = await readDB('alumnos')
 
-    const existe = alumnos.find((a: any) => a.legajo === req.body.legajo)
-    if (existe) {
-      return res.status(409).json({ error: `Ya existe un alumno con el legajo ${req.body.legajo}` })
+    let nuevo_legajo = 0
+
+    if(alumnos){
+      const legajos = alumnos.map((a: any) => a.legajo)
+      const maxLegajo = Math.max(...legajos) 
+      nuevo_legajo = maxLegajo + 1
     }
-
-    const fecha = new Date().toISOString().split('T')[0]
-
-    const nuevoAlumno = new AlumnoModel(
-    req.body.nombre, 
-    req.body.apellido, 
-    req.body.email, 
-    req.body.legajo
-    )
+    
+    const { nombre, apellido, email, isActive } = req.body;
+    const nuevoAlumno = new AlumnoModel(nombre, apellido, email, nuevo_legajo, isActive)
 
     alumnos.push(nuevoAlumno.getAllAttributes());
+
     await writeDB('alumnos', alumnos);
 
     return res.status(201).json(nuevoAlumno)
@@ -74,7 +67,6 @@ const updateAlumno = async (req: Request, res: Response) => {
     }
 
     const fecha = new Date().toISOString().split('T')[0]
-
     const { nombre, apellido, email, isActive } = req.body;
     alumnos[index] = {
 
