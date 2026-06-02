@@ -4,8 +4,11 @@
   "description": "grupo0",
   "main": "app.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec ts-node app.js",
     "start": "ts-node app.js",
+    "lint": "npx standard",
+    "fix": "npx standard --fix",
     "prepare": "husky"
   },
   "author": "",
