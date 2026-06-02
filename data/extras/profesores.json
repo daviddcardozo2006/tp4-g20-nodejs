@@ -5,10 +5,7 @@
     "apellido": "Gómez",
     "email": "laura.gomez@universidad.edu.ar",
     "titulo": "Ingeniera en Sistemas",
-    "materiasDictadas": [
-      "MAT101",
-      "PRG202"
-    ],
+    "materiasDictadas": ["MAT101", "PRG202"],
     "departamento": "Ciencias de la Computación",
     "fechaAlta": "2026-06-02",
     "modificacion": "2026-06-02",

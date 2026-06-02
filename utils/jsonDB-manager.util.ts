@@ -9,7 +9,7 @@ export const readDB = async (fileName: string) => {
     return JSON.parse(data);
   } catch (error) {
     // Si hay un error al leer el archivo, evitamos que se rompa devolviendo un array vacío
-    return []; 
+    return [];
   }
 };
 

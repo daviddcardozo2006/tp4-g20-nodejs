@@ -9,25 +9,29 @@ API REST desarrollada con Node.js y Express para la gestión de alumnos, con arq
 **Grupo N° 20**
 
 **Integrantes:**
+
 - Alejo Simos
 - David Cardozo
 - Naim Neman
 - Severino Tomás
 - Ramón Pastré
+
 ---
 
 ## ⚙️ Metodología de Trabajo (Git y GitHub)
 
 Para la gestión de versiones y el trabajo colaborativo utilizamos un esquema basado en **Git Flow**:
-* **`main`**: Contiene el código de producción estable y funcional.
-* **`develop`**: Rama de integración donde se unen todas las nuevas funcionalidades antes de pasar a producción.
-* **`feature/...`**: Cada integrante trabajó en ramas independientes (ej: `feature/login`, `feature/rutas-usuarios`) que luego se integraron a `develop` mediante Pull Requests.
+
+- **`main`**: Contiene el código de producción estable y funcional.
+- **`develop`**: Rama de integración donde se unen todas las nuevas funcionalidades antes de pasar a producción.
+- **`feature/...`**: Cada integrante trabajó en ramas independientes (ej: `feature/login`, `feature/rutas-usuarios`) que luego se integraron a `develop` mediante Pull Requests.
 
 ---
 
 ## 📂 Estructura del Proyecto y División de Archivos
 
 ### Distribución de Carpetas y Archivos
+
 El proyecto está estructurado de la siguiente manera:
 
 ```text
@@ -67,6 +71,7 @@ tp4-g20-nodejs/
 ```
 
 ### Organización de responsabilidades
+
 - **`app.js`**: inicializa la aplicación y pone en marcha el servidor.
 - **`core/`**: concentra la configuración general del servidor Express.
 - **`routes/`**: define los endpoints disponibles de la API.
@@ -76,7 +81,6 @@ tp4-g20-nodejs/
 - **`persistence/`**: incluye archivos y modelos vinculados a la persistencia del sistema.
 
 Esta distribución permite separar responsabilidades, mantener el proyecto ordenado y facilitar el trabajo colaborativo entre los integrantes del grupo.
-
 
 ---
 
@@ -88,15 +92,15 @@ Cada archivo JSON utilizado por el sistema contiene un unico array de objetos de
 
 ```json
 [
-	{
-		"legajo": 10001,
-		"nombre": "Mora",
-		"apellido": "Garcia",
-		"email": "m.garcia@facultad.edu.ar",
-		"fechaAlta": "2026-03-02",
-		"modificacion": "2026-03-02",
-		"isActive": true
-	}
+  {
+    "legajo": 10001,
+    "nombre": "Mora",
+    "apellido": "Garcia",
+    "email": "m.garcia@facultad.edu.ar",
+    "fechaAlta": "2026-03-02",
+    "modificacion": "2026-03-02",
+    "isActive": true
+  }
 ]
 ```
 
@@ -104,11 +108,11 @@ Cada archivo JSON utilizado por el sistema contiene un unico array de objetos de
 
 ```json
 [
-	{
-		"idMateria": "MAT101",
-		"nombre": "Matematica I",
-		"cuatrimestre": 1
-	}
+  {
+    "idMateria": "MAT101",
+    "nombre": "Matematica I",
+    "cuatrimestre": 1
+  }
 ]
 ```
 
@@ -116,13 +120,13 @@ Cada archivo JSON utilizado por el sistema contiene un unico array de objetos de
 
 ```json
 [
-	{
-		"id": 1,
-		"legajo": 10001,
-		"idMateria": "MAT101",
-		"nota": 9,
-		"fecha": "03-04-24"
-	}
+  {
+    "id": 1,
+    "legajo": 10001,
+    "idMateria": "MAT101",
+    "nota": 9,
+    "fecha": "03-04-24"
+  }
 ]
 ```
 
@@ -130,19 +134,21 @@ Cada archivo JSON utilizado por el sistema contiene un unico array de objetos de
 
 ```json
 [
-	{
-		"idProfesor": 1,
-		"nombre": "Ana",
-		"apellido": "Fernandez",
-		"email": "a.fernandez@facultad.edu.ar",
-		"materia": "MAT101",
-		"isActive": true
-	}
+  {
+    "idProfesor": 1,
+    "nombre": "Ana",
+    "apellido": "Fernandez",
+    "email": "a.fernandez@facultad.edu.ar",
+    "materia": "MAT101",
+    "isActive": true
+  }
 ]
 ```
 
 ---
+
 ## Link Deploy en Render
+
 https://tp4-g20-nodejs.onrender.com
 
 ---
