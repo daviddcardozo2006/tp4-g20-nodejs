@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ProfesorModel } from '../models/extras/profesor.model';
+import { ProfesorModel } from '../models/profesor.model';
 
 export const validateProfesorMiddleware = (
   req: Request,

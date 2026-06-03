@@ -5,9 +5,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import alumnoRoutes from '../routes/alumno.routes';
-import materiaRoutes from '../routes/extras/materia.routes';
-import notaRoutes from '../routes/extras/nota.routes';
-import profesorRoutes from '../routes/extras/profesor.routes';
+import materiaRoutes from '../routes/materia.routes';
+import notaRoutes from '../routes/nota.routes';
+import profesorRoutes from '../routes/profesor.routes';
 
 class Server {
   public app: Application;

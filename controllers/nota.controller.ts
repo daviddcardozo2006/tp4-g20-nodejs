@@ -1,6 +1,6 @@
 import { readDB, writeDB } from '../utils/jsonDB-manager.util'
 import { Request, Response } from 'express'
-import { NotaModel } from '../models/extras/nota.model'
+import { NotaModel } from '../models/nota.model'
 
 const getNotaAll = async (req: Request, res: Response) => {
     try {

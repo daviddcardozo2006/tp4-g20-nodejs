@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { NotaModel } from '../models/extras/nota.model';
+import { NotaModel } from '../models/nota.model';
 
 export const validateNotaMiddleware = (
   req: Request,

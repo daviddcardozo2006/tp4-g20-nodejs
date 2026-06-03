@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { MateriaModel } from '../models/extras/materia.model';
+import { MateriaModel } from '../models/materia.model';
 
 export const validateMateriaMiddleware = (
   req: Request,

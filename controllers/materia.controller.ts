@@ -1,6 +1,6 @@
 import { readDB, writeDB } from '../utils/jsonDB-manager.util';
 import { Request, Response } from 'express';
-import { MateriaModel } from '../models/extras/materia.model';
+import { MateriaModel } from '../models/materia.model';
 
 const getMateriaAll = async (req: Request, res: Response) => {
   try {

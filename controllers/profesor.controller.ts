@@ -1,6 +1,6 @@
 import { readDB, writeDB } from '../utils/jsonDB-manager.util';
 import { Request, Response } from 'express';
-import { ProfesorModel } from '../models/extras/profesor.model';
+import { ProfesorModel } from '../models/profesor.model';
 
 const getProfesorAll = async (req: Request, res: Response) => {
   try {
