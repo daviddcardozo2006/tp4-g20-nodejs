@@ -27,3 +27,7 @@ Thumbs.db
 vscode/
 .husky/
 .eslintrc.json
+.prettierrc
+
+# --
+tsconfig.json

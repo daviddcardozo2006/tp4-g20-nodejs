@@ -8,7 +8,7 @@ export const readDB = async (fileName: string) => {
     const data = await fs.readFile(dataPath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    // Si hay un error al leer el archivo, evitamos que se rompa devolviendo un array vacío
+    console.error(`Error leyendo el archivo ${fileName}.json:`, error);
     return [];
   }
 };
