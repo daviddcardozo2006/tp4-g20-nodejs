@@ -5,8 +5,8 @@ import {
   createProfesor,
   updateProfesor,
   deleteProfesor,
-} from '../../controllers/profesor.controller';
-import { validateProfesorMiddleware } from '../../middlewares/validar-profesor.middleware';
+} from '../controllers/profesor.controller';
+import { validateProfesorMiddleware } from '../middlewares/validar-profesor.middleware';
 
 const rutas = Router();
 

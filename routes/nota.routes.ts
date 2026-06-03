@@ -5,8 +5,8 @@ import {
   createNota,
   updateNota,
   deleteNota,
-} from '../../controllers/nota.controller';
-import { validateNotaMiddleware } from '../../middlewares/validar-nota.middleware';
+} from '../controllers/nota.controller';
+import { validateNotaMiddleware } from '../middlewares/validar-nota.middleware';
 
 const rutas = Router();
 

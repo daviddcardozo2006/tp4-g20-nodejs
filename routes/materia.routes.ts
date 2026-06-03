@@ -5,8 +5,8 @@ import {
   createMateria,
   updateMateria,
   deleteMateria,
-} from '../../controllers/materia.controller';
-import { validateMateriaMiddleware } from '../../middlewares/validar-materia.middleware';
+} from '../controllers/materia.controller';
+import { validateMateriaMiddleware } from '../middlewares/validar-materia.middleware';
 
 const rutas = Router();
 

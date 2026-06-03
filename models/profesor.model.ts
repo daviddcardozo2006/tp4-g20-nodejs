@@ -1,4 +1,4 @@
-import { PersonaModel } from '../persona.model';
+import { PersonaModel } from '../models/persona.model';
 
 export class ProfesorModel extends PersonaModel {
   constructor(
