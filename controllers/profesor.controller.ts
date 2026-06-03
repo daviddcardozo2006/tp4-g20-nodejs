@@ -17,23 +17,28 @@ const getProfesorAll = async (req: Request, res: Response) => {
 const getProfesorById = async (req: Request, res: Response) => {
   try {
     const profesores = await readDB('profesores');
-    const { legajo } = req.params;
-    const profesor = profesores.find((p: any) => p.legajo === legajo);
+
+    const legajoNumerico = parseInt(req.params.legajo as string, 10);
+    if (isNaN(legajoNumerico)) {
+      return res
+        .status(400)
+        .json({ error: 'El legajo debe ser un número válido' });
+    }
+
+    const profesor = profesores.find((p: any) => p.legajo === legajoNumerico);
 
     if (!profesor) {
-      return res
-        .status(404)
-        .json({ error: `No existe el profesor con el legajo ${legajo}` });
+      return res.status(404).json({
+        error: `No existe el profesor con el legajo ${legajoNumerico}`,
+      });
     }
 
     return res.status(200).json(profesor);
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo obtener el detalle del profesor con legajo ${req.params.legajo}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo obtener el detalle del profesor con legajo ${req.params.legajo}`,
+    });
   }
 };
 
@@ -109,7 +114,13 @@ const createProfesor = async (req: Request, res: Response) => {
 
 const updateProfesor = async (req: Request, res: Response) => {
   try {
-    const { legajo } = req.params;
+    const legajoNumerico = parseInt(req.params.legajo as string, 10);
+    if (isNaN(legajoNumerico)) {
+      return res
+        .status(400)
+        .json({ error: 'El legajo debe ser un número válido' });
+    }
+
     const {
       nombre,
       apellido,
@@ -125,13 +136,13 @@ const updateProfesor = async (req: Request, res: Response) => {
       readDB('materias'),
     ]);
 
-    const index = profesores.findIndex((p: any) => p.legajo === legajo);
+    const index = profesores.findIndex((p: any) => p.legajo === legajoNumerico);
 
     // Validamos que el profesor exista
     if (index === -1) {
-      return res
-        .status(404)
-        .json({ error: `No existe el profesor con el legajo ${legajo}` });
+      return res.status(404).json({
+        error: `No existe el profesor con el legajo ${legajoNumerico}`,
+      });
     }
 
     // Validar que TODAS las materias dictadas existan
@@ -181,41 +192,40 @@ const updateProfesor = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo actualizar el profesor con legajo ${req.params.legajo}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo actualizar el profesor con legajo ${req.params.legajo}`,
+    });
   }
 };
 
 const deleteProfesor = async (req: Request, res: Response) => {
   try {
     const profesores = await readDB('profesores');
-    const { legajo } = req.params;
-    const index = profesores.findIndex((p: any) => p.legajo === legajo);
+    const legajoNumerico = parseInt(req.params.legajo as string, 10);
+    if (isNaN(legajoNumerico)) {
+      return res
+        .status(400)
+        .json({ error: 'El legajo debe ser un número válido' });
+    }
+    const index = profesores.findIndex((p: any) => p.legajo === legajoNumerico);
 
     if (index === -1) {
-      return res
-        .status(404)
-        .json({ error: `No existe el profesor con el legajo ${legajo}` });
+      return res.status(404).json({
+        error: `No existe el profesor con el legajo ${legajoNumerico}`,
+      });
     }
 
     const eliminado = profesores.splice(index, 1)[0]; // splice devuelve un array con los elementos eliminados, como solo eliminamos uno, agarramos el primero (y único) elemento del array con [0]
     await writeDB('profesores', profesores);
-    return res
-      .status(200)
-      .json({
-        msg: `Profesor con legajo ${legajo} eliminado`,
-        profesor: eliminado,
-      });
+    return res.status(200).json({
+      msg: `Profesor con legajo ${legajoNumerico} eliminado`,
+      profesor: eliminado,
+    });
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo eliminar el profesor con legajo ${req.params.legajo}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo eliminar el profesor con legajo ${req.params.legajo}`,
+    });
   }
 };
 

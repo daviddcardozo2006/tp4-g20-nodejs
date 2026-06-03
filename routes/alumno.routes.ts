@@ -10,9 +10,9 @@ import { validateAlumnoMiddleware } from '../middlewares/validar-alumno.middlewa
 const rutas = Router();
 
 rutas.get('/', getAlumnoAll);
-rutas.get('/:legajo', validateAlumnoMiddleware, getAlumnoById);
+rutas.get('/:legajo', getAlumnoById);
 rutas.post('/', validateAlumnoMiddleware, createAlumno);
 rutas.put('/:legajo', validateAlumnoMiddleware, updateAlumno);
-rutas.delete('/:legajo', validateAlumnoMiddleware, deleteAlumno);
+rutas.delete('/:legajo', deleteAlumno);
 
 export default rutas;

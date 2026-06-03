@@ -36,6 +36,11 @@ export class PersonaModel {
 
   // VALIDATION ATTRIBUTES
   public static validate(body: any): string | null {
+    // Verificamos que el body exista
+    if (!body) {
+      return 'No se enviaron datos en el cuerpo de la petición (body está vacío).';
+    }
+
     if (!body.nombre || body.nombre.trim() === '') {
       return 'El nombre es obligatorio';
     }

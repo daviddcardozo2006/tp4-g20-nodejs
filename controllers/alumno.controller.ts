@@ -17,25 +17,29 @@ const getAlumnoAll = async (req: Request, res: Response) => {
 const getAlumnoById = async (req: Request, res: Response) => {
   try {
     const alumnos = await readDB('alumnos');
+
+    const legajoNumerico = parseInt(req.params.legajo as string, 10);
+    if (isNaN(legajoNumerico)) {
+      return res
+        .status(400)
+        .json({ error: 'El legajo debe ser un número válido' });
+    }
+
     const { legajo } = req.params;
-    const alumno = alumnos.find(
-      (a: any) => a.legajo === parseInt(legajo as string, 10)
-    );
+    const alumno = alumnos.find((a: any) => a.legajo === legajoNumerico);
 
     if (!alumno) {
       return res
         .status(404)
-        .json({ error: `No existe el alumno con el legajo ${legajo}` });
+        .json({ error: `No existe el alumno con el legajo ${legajoNumerico}` });
     }
 
     return res.status(200).json(alumno);
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo obtener el detalle del alumno con legajo ${req.params.legajo}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo obtener el detalle del alumno con legajo ${req.params.legajo}`,
+    });
   }
 };
 
@@ -74,15 +78,20 @@ const createAlumno = async (req: Request, res: Response) => {
 const updateAlumno = async (req: Request, res: Response) => {
   try {
     const alumnos = await readDB('alumnos');
-    const { legajo } = req.params;
-    const index = alumnos.findIndex(
-      (a: any) => a.legajo === parseInt(legajo as string, 10)
-    );
+
+    const legajoNumerico = parseInt(req.params.legajo as string, 10);
+    if (isNaN(legajoNumerico)) {
+      return res
+        .status(400)
+        .json({ error: 'El legajo debe ser un número válido' });
+    }
+
+    const index = alumnos.findIndex((a: any) => a.legajo === legajoNumerico);
 
     if (index === -1) {
       return res
         .status(404)
-        .json({ error: `No existe el alumno con el legajo ${legajo}` });
+        .json({ error: `No existe el alumno con el legajo ${legajoNumerico}` });
     }
 
     const fecha = new Date().toISOString().split('T')[0];
@@ -106,44 +115,43 @@ const updateAlumno = async (req: Request, res: Response) => {
     return res.status(200).json(alumnos[index]);
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo actualizar el alumno con legajo ${req.params.legajo}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo actualizar el alumno con legajo ${req.params.legajo}`,
+    });
   }
 };
 
 const deleteAlumno = async (req: Request, res: Response) => {
   try {
     const alumnos = await readDB('alumnos');
-    const { legajo } = req.params;
-    const index = alumnos.findIndex(
-      (a: any) => a.legajo === parseInt(legajo as string, 10)
-    );
+
+    const legajoNumerico = parseInt(req.params.legajo as string, 10);
+    if (isNaN(legajoNumerico)) {
+      return res
+        .status(400)
+        .json({ error: 'El legajo debe ser un número válido' });
+    }
+
+    const index = alumnos.findIndex((a: any) => a.legajo === legajoNumerico);
 
     if (index === -1) {
       return res
         .status(404)
-        .json({ error: `No existe el alumno con el legajo ${legajo}` });
+        .json({ error: `No existe el alumno con el legajo ${legajoNumerico}` });
     }
 
     const eliminado = alumnos.splice(index, 1)[0]; // splice devuelve un array con los elementos eliminados, como solo eliminamos uno, agarramos el primero (y único) elemento del array con [0]
     await writeDB('alumnos', alumnos);
 
-    return res
-      .status(200)
-      .json({
-        msg: `Alumno con legajo ${legajo} eliminado`,
-        alumno: eliminado,
-      });
+    return res.status(200).json({
+      msg: `Alumno con legajo ${legajoNumerico} eliminado`,
+      alumno: eliminado,
+    });
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo eliminar el alumno con legajo ${req.params.legajo}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo eliminar el alumno con legajo ${req.params.legajo}`,
+    });
   }
 };
 

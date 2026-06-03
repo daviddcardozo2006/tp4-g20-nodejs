@@ -11,9 +11,9 @@ import { validateProfesorMiddleware } from '../middlewares/validar-profesor.midd
 const rutas = Router();
 
 rutas.get('/', getProfesorAll);
-rutas.get('/:id', validateProfesorMiddleware, getProfesorById);
+rutas.get('/:legajo', getProfesorById);
 rutas.post('/', validateProfesorMiddleware, createProfesor);
-rutas.put('/:id', validateProfesorMiddleware, updateProfesor);
-rutas.delete('/:id', validateProfesorMiddleware, deleteProfesor);
+rutas.put('/:legajo', validateProfesorMiddleware, updateProfesor);
+rutas.delete('/:legajo', validateProfesorMiddleware, deleteProfesor);
 
 export default rutas;

@@ -22,8 +22,8 @@ class Server {
   }
 
   private middleware(): void {
-    this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(cors());
   }
 
   rutas() {

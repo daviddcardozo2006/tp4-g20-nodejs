@@ -16,9 +16,9 @@ const getMateriaAll = async (req: Request, res: Response) => {
 
 const getMateriaById = async (req: Request, res: Response) => {
   try {
-    const materias = await readDB('materias');
     const { idMateria } = req.params;
-    const materia = materias.find((m: any) => m.id === idMateria);
+    const materias = await readDB('materias');
+    const materia = materias.find((m: any) => m.idMateria === idMateria);
 
     if (!materia) {
       return res
@@ -29,11 +29,9 @@ const getMateriaById = async (req: Request, res: Response) => {
     return res.status(200).json(materia);
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo obtener el detalle de la materia con ID ${req.params.idMateria}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo obtener el detalle de la materia con ID ${req.params.idMateria}`,
+    });
   }
 };
 
@@ -58,13 +56,11 @@ const createMateria = async (req: Request, res: Response) => {
 
     await writeDB('materias', materias);
 
-    return res
-      .status(201)
-      .json({
-        success: true,
-        message: 'Materia creada correctamente',
-        materia: nuevaMateria,
-      });
+    return res.status(201).json({
+      success: true,
+      message: 'Materia creada correctamente',
+      materia: nuevaMateria,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'No se pudo crear la materia' });
@@ -98,11 +94,9 @@ const updateMateria = async (req: Request, res: Response) => {
     return res.status(200).json(materias[index]);
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo actualizar la materia con ID ${req.params.idMateria}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo actualizar la materia con ID ${req.params.idMateria}`,
+    });
   }
 };
 
@@ -120,19 +114,15 @@ const deleteMateria = async (req: Request, res: Response) => {
 
     const eliminado = materias.splice(index, 1)[0]; // splice devuelve un array con los elementos eliminados, como solo eliminamos uno, agarramos el primero (y único) elemento del array con [0]
     await writeDB('materias', materias);
-    return res
-      .status(200)
-      .json({
-        msg: `Materia con ID ${idMateria} eliminada`,
-        materia: eliminado,
-      });
+    return res.status(200).json({
+      msg: `Materia con ID ${idMateria} eliminada`,
+      materia: eliminado,
+    });
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        error: `No se pudo eliminar la materia con ID ${req.params.idMateria}`,
-      });
+    return res.status(500).json({
+      error: `No se pudo eliminar la materia con ID ${req.params.idMateria}`,
+    });
   }
 };
 

@@ -11,9 +11,9 @@ import { validateMateriaMiddleware } from '../middlewares/validar-materia.middle
 const rutas = Router();
 
 rutas.get('/', getMateriaAll);
-rutas.get('/:id', validateMateriaMiddleware, getMateriaById);
+rutas.get('/:idMateria', getMateriaById);
 rutas.post('/', validateMateriaMiddleware, createMateria);
-rutas.put('/:id', validateMateriaMiddleware, updateMateria);
-rutas.delete('/:id', validateMateriaMiddleware, deleteMateria);
+rutas.put('/:idMateria', validateMateriaMiddleware, updateMateria);
+rutas.delete('/:idMateria', validateMateriaMiddleware, deleteMateria);
 
 export default rutas;
