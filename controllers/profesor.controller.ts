@@ -77,7 +77,7 @@ const createProfesor = async (req: Request, res: Response) => {
 
       // Si el arreglo de inexistentes tiene elementos, cortamos la ejecución
       if (materiasInexistentes.length > 0) {
-        return res.status(400).json({
+        return res.status(409).json({
           success: false,
           message: `Error: Las siguientes materias no existen en el sistema: ${materiasInexistentes.join(', ')}`,
         });

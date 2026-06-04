@@ -62,7 +62,7 @@ const createNota = async (req: Request, res: Response) => {
     // Validar que exista la materia asociada a la nueva nota
     const materiaExiste = materias.find((m: any) => m.idMateria === idMateria);
     if (!materiaExiste) {
-      return res.status(400).json({
+      return res.status(409).json({
         success: false,
         message: `Error: No existe una materia con el ID ${idMateria}`,
       });
@@ -71,7 +71,7 @@ const createNota = async (req: Request, res: Response) => {
     // Validar que exista el alumno asociado a la nueva nota
     const alumnoExiste = alumnos.find((a: any) => a.legajo === legajo);
     if (!alumnoExiste) {
-      return res.status(400).json({
+      return res.status(409).json({
         success: false,
         message: `Error: No existe un alumno con el legajo ${legajo}`,
       });

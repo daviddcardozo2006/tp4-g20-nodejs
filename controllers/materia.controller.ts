@@ -43,8 +43,8 @@ const createMateria = async (req: Request, res: Response) => {
     // Nos fijamos que no exista
     const materiaExiste = materias.find((m: any) => m.idMateria === idMateria);
     if (materiaExiste) {
-      // Si ya existe, cortamos todo y devolvemos un error 400 (Bad Request)
-      return res.status(400).json({
+      // Si ya existe, cortamos todo y devolvemos un error 409 (Conflict)
+      return res.status(409).json({
         success: false,
         message: `Error: Ya existe una materia con el ID ${idMateria}`,
       });

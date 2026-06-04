@@ -25,7 +25,6 @@ const getAlumnoById = async (req: Request, res: Response) => {
         .json({ error: 'El legajo debe ser un número válido' });
     }
 
-    const { legajo } = req.params;
     const alumno = alumnos.find((a: any) => a.legajo === legajoNumerico);
 
     if (!alumno) {
