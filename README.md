@@ -46,17 +46,15 @@ tp4-g20-nodejs/
 │   └── server.js
 ├── data/
 │   ├── alumnos.json
-│   └── extras/
-│       ├── sys-materias.json
-│       ├── sys-notas.json
-│       └── sys-profesores.json
+│   ├── materias.json
+│   ├── notas.json
+│   └── profesores.json
 ├── models/
 │   ├── alumno.model.ts
 │   ├── persona.model.ts
-│   └── extras/
-│       ├── clase.model.ts
-│       ├── nota.model.ts
-│       └── profesor.model.ts
+│   ├── materia.model.ts
+│   ├── nota.model.ts
+│   └── profesor.model.ts
 ├── persistence/
 │   ├── a.txt
 │   └── sys-databse-models/
@@ -64,10 +62,9 @@ tp4-g20-nodejs/
 │       └── sys-log.database.model.ts
 └── routes/
 	├── alumno.routes.js
-	└── extras/
-		├── materia.routes.js
-		├── nota.routes.js
-		└── profesor.routes.js
+  ├── materia.routes.js
+	├── nota.routes.js
+	└── profesor.routes.js
 ```
 
 ### Organización de responsabilidades
@@ -150,5 +147,9 @@ Cada archivo JSON utilizado por el sistema contiene un unico array de objetos de
 ## Link Deploy en Render
 
 https://tp4-g20-nodejs.onrender.com
+
+## Link Documentación Postman
+
+https://documenter.getpostman.com/view/23579407/2sBXwpPX2Y
 
 ---
