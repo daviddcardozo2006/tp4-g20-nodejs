@@ -48,8 +48,8 @@ export class AlumnoModel extends PersonaModel {
     }
 
     // Validacion Alumno
-    if (!body.legajo || typeof body.legajo !== 'number') {
-      return 'El legajo es obligatorio y debe ser un número';
+    if (body.legajo !== undefined && typeof body.legajo !== 'number') {
+      return 'El legajo debe ser un número';
     }
     if (body.isActive !== undefined && typeof body.isActive !== 'boolean') {
       return 'isActive debe ser un booleano';
