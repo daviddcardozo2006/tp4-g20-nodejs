@@ -72,8 +72,8 @@ export class ProfesorModel extends PersonaModel {
     }
 
     // Validacion Profesor
-    if (!body.legajo || typeof body.legajo !== 'number') {
-      return 'El legajo es obligatorio y debe ser un número';
+    if (body.legajo !== undefined && typeof body.legajo !== 'number') {
+      return 'El legajo debe ser un número';
     }
     if (
       !body.titulo ||
